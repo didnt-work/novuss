@@ -1,0 +1,12 @@
+{
+  "name": "novuss",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "node tools/stamp-version.js && wrangler deploy",
+    "test": "node --test tests/",
+    "logs": "wrangler tail novuss --format json | node tools/logs.js",
+    "stats": "cf analytics-engine sql query --file stats/daily.sql | node stats/table.js",
+    "stats:matches": "cf analytics-engine sql query --file stats/matches.sql | node stats/table.js"
+  }
+}

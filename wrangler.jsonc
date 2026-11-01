@@ -1,0 +1,16 @@
+{
+  "name": "novuss",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-01",
+  "assets": { "directory": "./public" },
+  "durable_objects": {
+    "bindings": [{ "name": "ROOMS", "class_name": "Room" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }],
+  // At most 20 new rooms per address per minute (per Cloudflare location, approximate).
+  // Game statistics for online rooms (see the event list in src/worker.js).
+  "analytics_engine_datasets": [{ "binding": "STATS", "dataset": "novuss_events" }],
+  "ratelimits": [{ "name": "CREATE_LIMIT", "namespace_id": "7351", "simple": { "limit": 20, "period": 60 } }],
+  "routes": [{ "pattern": "novuss.didnt.work", "custom_domain": true }],
+  "observability": { "enabled": true }
+}
